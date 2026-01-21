@@ -83,7 +83,7 @@ router.get("/export/csv", requireAdmin, async (req: Request, res: Response) => {
 // GET /api/members/:id - Get member by ID (Admin only)
 router.get("/:id", requireAdmin, async (req: Request, res: Response) => {
     try {
-        const member = await membersService.findById(req.params.id);
+        const member = await membersService.findById(req.params.id as string);
         if (!member) {
             return res.status(404).json({ error: "Member tidak ditemukan" });
         }
@@ -97,7 +97,7 @@ router.get("/:id", requireAdmin, async (req: Request, res: Response) => {
 // PATCH /api/members/:id - Update member (Admin only)
 router.patch("/:id", requireAdmin, async (req: Request, res: Response) => {
     try {
-        const member = await membersService.update(req.params.id, req.body);
+        const member = await membersService.update(req.params.id as string, req.body);
         if (!member) {
             return res.status(404).json({ error: "Member tidak ditemukan" });
         }
@@ -111,7 +111,7 @@ router.patch("/:id", requireAdmin, async (req: Request, res: Response) => {
 // POST /api/members/:id/activate - Activate pending member (Admin only)
 router.post("/:id/activate", requireAdmin, async (req: Request, res: Response) => {
     try {
-        const member = await membersService.activate(req.params.id);
+        const member = await membersService.activate(req.params.id as string);
         if (!member) {
             return res.status(404).json({ error: "Member tidak ditemukan" });
         }

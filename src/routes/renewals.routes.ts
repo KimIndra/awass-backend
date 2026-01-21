@@ -46,7 +46,7 @@ router.get("/", requireAdmin, async (req: Request, res: Response) => {
 router.patch("/:id/approve", requireAdmin, async (req: Request, res: Response) => {
     try {
         const adminId = (req as any).adminId || "system";
-        const result = await renewalsService.approve(req.params.id, adminId);
+        const result = await renewalsService.approve(req.params.id as string, adminId);
         res.json({
             success: true,
             message: "Perpanjangan berhasil disetujui",
@@ -62,7 +62,7 @@ router.patch("/:id/approve", requireAdmin, async (req: Request, res: Response) =
 router.patch("/:id/reject", requireAdmin, async (req: Request, res: Response) => {
     try {
         const adminId = (req as any).adminId || "system";
-        await renewalsService.reject(req.params.id, adminId);
+        await renewalsService.reject(req.params.id as string, adminId);
         res.json({ success: true, message: "Pengajuan ditolak" });
     } catch (error) {
         console.error("Reject renewal error:", error);

@@ -28,7 +28,7 @@ router.get("/", async (req: Request, res: Response) => {
 // GET /api/plans/:id - Get plan by ID (Public)
 router.get("/:id", async (req: Request, res: Response) => {
     try {
-        const plan = await plansService.findById(req.params.id);
+        const plan = await plansService.findById(req.params.id as string);
         if (!plan) {
             return res.status(404).json({ error: "Paket tidak ditemukan" });
         }

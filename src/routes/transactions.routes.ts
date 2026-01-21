@@ -7,7 +7,7 @@ const router = Router();
 // GET /api/members/:memberId/transactions - Get member transaction history
 router.get("/member/:memberId", requireAdmin, async (req: Request, res: Response) => {
     try {
-        const transactions = await transactionsService.findByMemberId(req.params.memberId);
+        const transactions = await transactionsService.findByMemberId(req.params.memberId as string);
         res.json(transactions);
     } catch (error) {
         console.error("Get transactions error:", error);
@@ -19,7 +19,7 @@ router.get("/member/:memberId", requireAdmin, async (req: Request, res: Response
 router.patch("/:id/verify", requireAdmin, async (req: Request, res: Response) => {
     try {
         const adminId = (req as any).adminId || "system";
-        const transaction = await transactionsService.verify(req.params.id, adminId);
+        const transaction = await transactionsService.verify(req.params.id as string, adminId);
         if (!transaction) {
             return res.status(404).json({ error: "Transaksi tidak ditemukan" });
         }
@@ -34,7 +34,7 @@ router.patch("/:id/verify", requireAdmin, async (req: Request, res: Response) =>
 router.patch("/:id/reject", requireAdmin, async (req: Request, res: Response) => {
     try {
         const adminId = (req as any).adminId || "system";
-        const transaction = await transactionsService.reject(req.params.id, adminId);
+        const transaction = await transactionsService.reject(req.params.id as string, adminId);
         if (!transaction) {
             return res.status(404).json({ error: "Transaksi tidak ditemukan" });
         }
