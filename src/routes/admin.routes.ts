@@ -2,7 +2,7 @@ import { Router, type Request, type Response } from "express";
 import { eq } from "drizzle-orm";
 import bcrypt from "crypto";
 import { db } from "../db/index.js";
-import { admins } from "../db/schema.js";
+import { admins, type Member } from "../db/schema.js";
 import { requireAdmin } from "../middleware/admin.middleware.js";
 
 const router = Router();
@@ -55,9 +55,9 @@ router.get("/stats", requireAdmin, async (req: Request, res: Response) => {
 
         const stats = {
             total: allMembers.length,
-            active: allMembers.filter((m) => m.status === "active" && m.activeUntil >= now).length,
-            expired: allMembers.filter((m) => m.activeUntil < now).length,
-            pending: allMembers.filter((m) => m.status === "pending").length,
+            active: allMembers.filter((m: Member) => m.status === "active" && m.activeUntil >= now).length,
+            expired: allMembers.filter((m: Member) => m.activeUntil < now).length,
+            pending: allMembers.filter((m: Member) => m.status === "pending").length,
         };
 
         res.json(stats);
