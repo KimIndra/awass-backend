@@ -1,0 +1,23 @@
+# Backend files
+node_modules/
+dist/
+uploads/
+
+# Environment
+.env
+.env.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Docker (not needed for Railway)
+docker-compose.yml
